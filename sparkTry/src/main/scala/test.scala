@@ -6,6 +6,7 @@ class test {
 object test{
   val sparkconf = new SparkConf().setMaster("local").setAppName("test").set("spark.port.maxRetries","1000")
   val spark = SparkSession.builder().config(sparkconf).getOrCreate()
+  import spark.implicits._
   val ds = spark.read.json("examples/src/main/resources/employees.json").as[Employee]
   ds.show()
   val averageSalary = MyAverage.toColumn.name("average_salary")
